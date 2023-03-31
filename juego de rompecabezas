@@ -1,0 +1,119 @@
+program PuzzleGame;
+
+uses crt;
+
+const
+  size = 4;
+  easy_moves = 10;
+  medium_moves = 50;
+  hard_moves = 100;
+
+type
+  TMatrix = array[1..size, 1..size] of integer;
+
+var
+  matrix: TMatrix;
+  empty_row, empty_col: integer;
+
+procedure PrintMatrix();
+var
+  i, j: integer;
+begin
+  clrscr;
+  writeln('Juego de Rompecabezas');
+  writeln;
+  for i := 1 to size do
+  begin
+    for j := 1 to size do
+    begin
+      if matrix[i][j] = 0 then
+      begin
+        write('    ');
+      end
+      else
+      begin
+        write(' ', matrix[i][j]:2, ' ');
+      end;
+    end;
+    writeln;
+  end;
+end;
+
+procedure FillMatrix();
+var
+  i, j, k: integer;
+begin
+  k := 1;
+  for i := 1 to size do
+  begin
+    for j := 1 to size do
+    begin
+      matrix[i][j] := k;
+      k := k + 1;
+    end;
+  end;
+  empty_row := size;
+  empty_col := size;
+  matrix[size][size] := 0;
+end;
+
+procedure ShuffleMatrix(moves: integer);
+var
+  i: integer;
+  r: char;
+begin
+  randomize;
+  for i := 1 to moves do
+  begin
+    r := chr(random(4) + ord('a'));
+    case r of
+      'a': if empty_row > 1 then Swap(empty_row, empty_col, empty_row - 1, empty_col);
+      'b': if empty_row < size then Swap(empty_row, empty_col, empty_row + 1, empty_col);
+      'c': if empty_col > 1 then Swap(empty_row, empty_col, empty_row, empty_col - 1);
+      'd': if empty_col < size then Swap(empty_row, empty_col, empty_row, empty_col + 1);
+    end;
+  end;
+end;
+
+procedure Swap(r1, c1, r2, c2: integer);
+var
+  temp: integer;
+begin
+  temp := matrix[r1][c1];
+  matrix[r1][c1] := matrix[r2][c2];
+  matrix[r2][c2] := temp;
+  empty_row := r2;
+  empty_col := c2;
+end;
+
+function IsSolved(): boolean;
+var
+  i, j, k: integer;
+begin
+  k := 1;
+  for i := 1 to size do
+  begin
+    for j := 1 to size do
+    begin
+      if matrix[i][j] <> k then
+      begin
+        if (i = size) and (j = size) then
+        begin
+          if matrix[i][j] = 0 then
+          begin
+            exit(true);
+          end
+          else
+          begin
+            exit(false);
+          end;
+        end
+        else
+        begin
+          exit(false);
+        end;
+      end;
+      k := k + 1;
+    end;
+  end;
+  exit(true);
