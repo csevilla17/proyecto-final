@@ -77,3 +77,43 @@ begin
   writeln('3. Izquierda');
   writeln('4. Derecha');
   readln(move);
+
+ case move of
+    1:
+      begin
+        if (x > 1) then
+        begin
+          temp := puzzleArray[x,y];
+          puzzleArray[x,y] := puzzleArray[x-1,y];
+          puzzleArray[x-1,y] := temp;
+        end;
+      end;
+    2:
+      begin
+        if (x < size) then
+        begin
+          temp := puzzleArray[x,y];
+          puzzleArray[x,y] := puzzleArray[x+1,y];
+          puzzleArray[x+1,y] := temp;
+        end;
+      end;
+    3:
+      begin
+        if (y > 1) then
+        begin
+          temp := puzzleArray[x,y];
+          puzzleArray[x,y] := puzzleArray[x,y-1];
+          puzzleArray[x,y-1] := temp;
+        end;
+      end;
+    4:
+      begin
+        if (y < size) then
+        begin
+          temp := puzzleArray[x,y];
+          puzzleArray[x,y] := puzzleArray[x,y+1];
+          puzzleArray[x,y+1] := temp;
+        end;
+      end;
+      end;
+end;
