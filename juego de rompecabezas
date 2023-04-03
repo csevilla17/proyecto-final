@@ -107,3 +107,49 @@ begin
           puzzleArray[x,y-1] := temp;
         end;
       end;
+    4:
+      begin
+        if (y < size) then
+        begin
+          temp := puzzleArray[x,y];
+          puzzleArray[x,y] := puzzleArray[x,y+1];
+          puzzleArray[x,y+1] := temp;
+        end;
+      end;
+      end;
+end;
+begin
+  // Pedir el nombre y el nick del jugador
+  writeln('Ingrese su nombre: ');
+  readln(nombre);
+  writeln('Ingrese su nick: ');
+  readln(nick);
+
+  // Pedir el nivel de dificultad
+  writeln('Seleccione el nivel de dificultad:');
+  writeln('1. Facil (3x3)');
+  writeln('2. Medio (4x4)');
+  writeln('3. Dificil (5x5)');
+  readln(dificultad);
+
+  // Calcular el tamaño del puzzle basado en el nivel de dificultad
+  size := dificultad + 2;
+
+  // Inicializar la matriz
+  for i := 1 to size do
+  begin
+    for j := 1 to size do
+    begin
+      puzzleArray[i,j] := (i-1) * size + j;
+    end;
+  end;
+
+  // Mezclar la matriz
+  shuffleArray();
+
+  // Jugar el puzzle
+  repeat
+    printPuzzle();
+    moveTile();
+  until false;
+end.
