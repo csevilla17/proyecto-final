@@ -1,3 +1,9 @@
+{Este código solicita el nombre y el nick del jugador, y luego
+solicita el nivel de dificultad del puzzle.
+Luego, inicializa la matriz y la mezcla. Finalmente, 
+entra en un bucle infinito donde muestra el estado actual del puzzle y solicita 
+al usuario que mueva una ficha.}
+
 program puzzle;
 
 uses crt;
