@@ -1,1 +1,42 @@
+program puzzle;
+
+uses crt;
+// Variables globales
+var
+  nombre, nick: string; // nombre y nick del jugador
+  dificultad, size: integer;// tamaño del puzzle y nivel de dificultad del puzzle
+  puzzleArray: array[1..10,1..10] of integer;// matriz que representa el puzzle
+  i, j, x, y, temp, randomCount: integer;// variables auxiliares para recorrer la matriz
+  
+// Función para imprimir el puzzle
+procedure printPuzzle();
+begin
+  clrscr;
+  writeln('Bienvenido a Puzzle, ', nombre, ' (', nick, ')');
+  writeln('Nivel de Dificultad: ', dificultad);
+  for i := 1 to size do
+  begin
+    for j := 1 to size do
+    begin
+      if (puzzleArray[i,j] < 10) then
+        write('0');
+      write(puzzleArray[i,j], ' ');
+    end;
+    writeln();
+  end;
+end;
+
+// Función para mezclar la matriz
+procedure shuffleArray();
+begin
+  randomCount := 10 * dificultad;
+  for i := 1 to randomCount do
+  begin
+    x := random(size) + 1;
+    y := random(size) + 1;
+    temp := puzzleArray[x,y];
+    puzzleArray[x,y] := puzzleArray[size - x + 1, size - y + 1];
+    puzzleArray[size - x + 1, size - y + 1] := temp;
+  end;
+end;
 
